@@ -44,6 +44,18 @@ app.post('/add-product', async(req,resp)=>{
         resp.send({result : 'bad request'})
     }
 })
+
+// get all products
+app.get('/get-products',async(req,resp)=>{
+    console.log("hiiiiiiii")
+    let request = await Product.find();
+    if(request.length>0){
+        resp.send(request);
+    }
+    else{
+        resp.send({response : 'no data found'})
+    }
+})
 app.listen(5000)
 
 

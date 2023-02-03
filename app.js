@@ -64,4 +64,20 @@ app.delete('/delete-product/:_id',async(req,resp)=>{
 app.listen(5000)
 
 
+// Get single product by id
+app.get('/getProductById/:id', async(req,resp)  =>{
+    let request =await Product.find({_id:req.params.id})
+    resp.send(request);
 
+})  
+
+// updata api
+
+app.put('/update/:id',async(req,res)=>{
+    console.log(req.body)
+    let request = await Product.updateOne(
+        {_id : req.params.id},
+        {$set:req.body}
+    )
+    res.send(request);
+})

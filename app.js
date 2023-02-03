@@ -35,7 +35,6 @@ app.post('/login',async(req,resp)=>{
 // add Product
 app.post('/add-product', async(req,resp)=>{
     if(req.body.name !== undefined && req.body.price !== undefined && req.body.category !== undefined && req.body.company !== undefined && req.body.userId !== undefined){
-        console.log(req.body.name)
     let data = new Product(req.body)
     let result = await data.save();
     resp.send(result);
@@ -47,7 +46,6 @@ app.post('/add-product', async(req,resp)=>{
 
 // get all products
 app.get('/get-products',async(req,resp)=>{
-    console.log("hiiiiiiii")
     let request = await Product.find();
     if(request.length>0){
         resp.send(request);
@@ -55,6 +53,13 @@ app.get('/get-products',async(req,resp)=>{
     else{
         resp.send({response : 'no data found'})
     }
+})
+
+
+// delete product 
+app.delete('/delete-product/:_id',async(req,resp)=>{
+    let request = await Product.deleteOne(req.params)
+    resp.send(request)
 })
 app.listen(5000)
 

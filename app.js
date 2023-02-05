@@ -81,3 +81,22 @@ app.put('/update/:id',async(req,res)=>{
     )
     res.send(request);
 })
+
+
+// Search API
+
+app.get("/search/:key",async(req,resp)=>{
+    let result = await Product.find({
+        "$or":[
+            {name : {$regex:req.params.key} },
+            {company : {$regex:req.params.key} },
+            {category : {$regex:req.params.key} },
+        ]
+    })
+    if(result.length>0){
+        resp.send(result);
+    }
+    else{
+        resp.send({result : "no result found"})
+    }
+})
